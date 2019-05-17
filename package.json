@@ -1,0 +1,16 @@
+{
+  "name": "homeproj",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha **/*.spec.js"
+  },
+  "author": "YJ",
+  "license": "ISC"
+}
