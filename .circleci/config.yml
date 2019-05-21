@@ -45,8 +45,18 @@ jobs:
           command: npm test --coverage
 
   deploydev:
-    name: Deploy application
-    command: sls deploy --stage dev
+       steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies- 
+      - run:   
+          name: Deploy application
+          command: sls deploy --stage dev
 
   deployprod:
     name: Deploy application
