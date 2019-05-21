@@ -88,11 +88,10 @@ jobs:
              sudo npm i -g serverless
              npm install
              sudo apt-get install awscli
-
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-    
+       - save_cache:
+           paths:
+             - node_modules
+           key: v1-dependencies-    
        - run:
            name: Deploy application
            command: |
