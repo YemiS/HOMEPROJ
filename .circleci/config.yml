@@ -59,16 +59,25 @@ jobs:
           command: sls deploy --stage dev
 
   deployprod:
-      run:
-        name: Deploy application
-        command: |
-          aws configure set aws_access_key_id ${DEV_KEY} --profile yemihomedev
-          aws configure set aws_secret_access_key ${DEV_SECRET} --profile yemihomedev
-          aws configure set role_arn ${PROD_KEY} --profile yemihome
-          aws configure set source_profile ${BRANCH_PROFILE} --profile yemihome
-          chmod +x scripts/aws-crossenv-role.sh
-          source scripts/aws-crossenv-role.sh
-          sls deploy --stage prod
+      steps:
+       - checkout
+
+      # Download and cache dependencies
+       - restore_cache:
+           keys:
+           - v1-dependencies-
+          # fallback to using the latest cache if no exact match is found
+           - v1-dependencies- 
+       - run:
+           name: Deploy application
+           command: |
+           aws configure set aws_access_key_id ${DEV_KEY} --profile yemihomedev
+           aws configure set aws_secret_access_key ${DEV_SECRET} --profile yemihomedev
+           aws configure set role_arn ${PROD_KEY} --profile yemihome
+           aws configure set source_profile ${BRANCH_PROFILE} --profile yemihome
+           chmod +x scripts/aws-crossenv-role.sh
+           source scripts/aws-crossenv-role.sh
+           sls deploy --stage prod
 workflows:
   version: 2
   build_and_test:
