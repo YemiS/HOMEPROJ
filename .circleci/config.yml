@@ -53,16 +53,16 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - test 
+      - test: 
           requires:
             - build
-      - deploydev
+      - deploydev:
           requires:
             - test
           filters:
             branches:
               only: control-deploy
-      - deployprod
+      - deployprod:
           requires:
             - test
           filters:
