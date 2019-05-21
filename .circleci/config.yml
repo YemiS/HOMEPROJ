@@ -1,12 +1,12 @@
 version: 2
+references:
+  defaults: &defaults
+      working_directory: ~/YemiS
+      docker:
+        - image: circleci/node:8.10
 jobs:
   build:
-    docker:
-      # specify the version you desire here
-      - image: circleci/node:8.10
-
-    working_directory: ~/YemiS
-
+    <<: *defaults
     steps:
       - checkout
 
@@ -45,11 +45,7 @@ jobs:
           command: npm test --coverage
 
   deploydev:
-     docker:
-       # specify the version you desire here
-       - image: circleci/node:8.10
-
-     working_directory: ~/YemiS
+     <<: *defaults 
      steps:
       - checkout
 
@@ -64,6 +60,7 @@ jobs:
           command: sls deploy --stage dev
 
   deployprod:
+      <<: *defaults
       steps:
        - checkout
 
