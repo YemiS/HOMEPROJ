@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports.hello = async (event) => {
-  console.log(process.env.AWS_DEPLOYMENT_BUCKET_PROD, event);
+  
   return {
     statusCode: 200,
     body: JSON.stringify({
