@@ -9,7 +9,6 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -115,7 +114,7 @@ workflows:
             - test
           filters:
             branches:
-              only: control-deploy
+              only: develop
       - deployprod:
           requires:
             - test
