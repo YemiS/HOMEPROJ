@@ -20,6 +20,11 @@ service: aws-nodejs # NOTE: update this with your service name
 provider:
   name: aws
   runtime: nodejs8.10
+custom:
+  myEnvironment:
+    deploymentBucket:
+      prod: ${env:AWS_DEPLOYMENT_BUCKET_PROD}
+      dev: ${env:AWS_DEPLOYMENT_BUCKET_DEV}    
 
 # you can overwrite defaults here
 #  stage: dev
@@ -42,8 +47,10 @@ provider:
 #            - "/*"
 
 # you can define service wide environment variables here
-#  environment:
-#    variable1: value1
+environment:
+   deploymentBucket: ${self:custom.myEnvironment.deploymentBucket.${opt:stage}}
+   AWS_DEPLOYMENT_BUCKET_PROD: ${env:AWS_DEPLOYMENT_BUCKET_PROD}
+   AWS_DEPLOYMENT_BUCKET_DEV: ${env:AWS_DEPLOYMENT_BUCKET_DEV}
 
 # you can add packaging information here
 #package:
